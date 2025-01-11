@@ -16,3 +16,7 @@ export function formatDate(date: string) {
 export function formatViews(views: number) {
   return `${views} ${views === 1 ? 'view' : 'views'}`;
 }
+
+export function parseJSONResponse<T>(res: T) {
+  return JSON.parse(JSON.stringify(res))
+}
