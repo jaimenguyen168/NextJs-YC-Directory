@@ -1,16 +1,16 @@
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
-import {client} from "@/sanity/lib/client";
-import {AUTHOR_BY_GITHUB_ID_QUERY} from "@/sanity/lib/query";
-import {writeClient} from "@/sanity/lib/write-client";
+import { AUTHOR_BY_GITHUB_ID_QUERY } from "@/sanity/lib/query";
+import { client } from "@/sanity/lib/client";
+import { writeClient } from "@/sanity/lib/write-client";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [GitHub],
   callbacks: {
     async signIn({
-      user: { name, email, image },
-      profile: { id, login, bio },
-    }) {
+                   user: { name, email, image },
+                   profile: { id, login, bio },
+                 }) {
       const existingUser = await client
         .withConfig({ useCdn: false })
         .fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
